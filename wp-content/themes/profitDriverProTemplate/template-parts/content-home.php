@@ -124,7 +124,7 @@
 <section id="video">
     <div class="video">
         <div class="line"></div>
-        <!-- <iframe src="https://www.youtube.com/embed/TKAYq_cl3iw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen=""></iframe> -->
+        	<iframe src="https://www.youtube.com/embed/TKAYq_cl3iw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen=""></iframe>
         <div class="scan"></div>
     </div>
     <div class="background"></div>

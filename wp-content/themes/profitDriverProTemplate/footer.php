@@ -77,6 +77,9 @@
                    <a href="http://www.profitdriverpro.com/privacy"><li>Privacy Policy</li></a>
                </ul>
             	</div>
+
+            	<!-- Need to add Sitemap.xml, links to internal pages -->
+            	
 		</footer><!-- .site-footer -->
 	</div><!-- .site-inner -->
 </div><!-- .site -->

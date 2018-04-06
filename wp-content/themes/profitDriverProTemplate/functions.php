@@ -131,6 +131,17 @@ function profitDriverPro_enqueue(){
 	);
 
 }
+
+
+function PDP_load_theme_setup(){
+
+	add_theme_support('menus');	
+	register_nav_menu('primary','The main Navigation that sticks on all pages.');
+}
+
+add_action('init','PDP_load_theme_setup');
+
+
 //Note first param must be a string. Just FYI...
 add_action('wp_enqueue_scripts','profitDriverPro_enqueue');
 

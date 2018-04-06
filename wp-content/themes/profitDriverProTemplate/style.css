@@ -2734,7 +2734,7 @@ p > video {
 /**
  * 14.1 - >= 710px
  */
-
+/*
 @media screen and (min-width: 44.375em) {
 	body:not(.custom-background-image):before,
 	body:not(.custom-background-image):after {
@@ -2758,7 +2758,7 @@ p > video {
 
 	body:not(.custom-background-image):after {
 		bottom: 0;
-	}
+	}*/
 
 	.site {
 		margin: 21px;
