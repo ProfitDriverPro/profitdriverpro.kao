@@ -10,9 +10,9 @@
  */
 ?>
 
-		</div><!-- .site-content -->
 
-		<footer id="colophon" class="site-footer" role="contentinfo">
+</div> <!-- end body wrap -->
+		<footer id="footer"  role="contentinfo">
 			<script type="application/ld+json">
 				{
 				  "@context": "http://schema.org",
@@ -35,42 +35,48 @@
 			</script>
 
 
-			<?php if ( has_nav_menu( 'primary' ) ) : ?>
-				<nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Primary Menu', 'twentysixteen' ); ?>">
-					<?php
-						wp_nav_menu( array(
-							'theme_location' => 'primary',
-							'menu_class'     => 'primary-menu',
-						 ) );
-					?>
-				</nav><!-- .main-navigation -->
-			<?php endif; ?>
+			
 
-			<?php if ( has_nav_menu( 'social' ) ) : ?>
-				<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentysixteen' ); ?>">
-					<?php
-						wp_nav_menu( array(
-							'theme_location' => 'social',
-							'menu_class'     => 'social-links-menu',
-							'depth'          => 1,
-							'link_before'    => '<span class="screen-reader-text">',
-							'link_after'     => '</span>',
-						) );
-					?>
-				</nav><!-- .social-navigation -->
-			<?php endif; ?>
+		
 
-			<div class="site-info">
-				<?php
-					/**
-					 * Fires before the twentysixteen footer text for footer customization.
-					 *
-					 * @since Twenty Sixteen 1.0
-					 */
-					do_action( 'twentysixteen_credits' );
-				?>
-				
-			</div><!-- .site-info -->
+
+				<ul class="office">
+	                <li>
+	                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/flags/canada.png">
+	                    <p>380 Wellington Street, Tower B, 6th Floor</p>
+	                    <p>London, Ontario</p>
+	                    <p>N6A 5B5</p>
+	                    <p>1 (800) 295-9070</p>
+	                </li>
+	                <li>
+	                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/flags/us.png">
+	                    <p>5000 Birch Street, West Tower, Suite 3000</p>
+	                    <p>Newport Beach, CA</p>
+	                    <p>92660</p>
+	                    <p>1 (800) 295-9070</p>
+	                </li>
+	                <li>
+	                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/flags/ireland.png">
+	                    <p>26 Pembroke Street Upper, Suite 9976</p>
+	                    <p>Dublin 2, Ireland</p>
+	                    <p>D02 X361</p>
+	                    <p>+353 1 234 3715</p>
+	                </li>
+            	</ul>
+				<div class="top">
+                <div class="logo">
+    				<img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-tag.png">
+    			</div>
+                <div class="social">
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-facebook-square"></i>
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <ul class="navigation">
+                   <a href="http://www.profitdriverpro.com/terms"><li>Terms & Conditions</li></a>
+                   <a href="http://www.profitdriverpro.com/privacy"><li>Privacy Policy</li></a>
+               </ul>
+            	</div>
 		</footer><!-- .site-footer -->
 	</div><!-- .site-inner -->
 </div><!-- .site -->

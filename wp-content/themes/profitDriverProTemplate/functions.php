@@ -44,6 +44,87 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
  *
  * @since Twenty Sixteen 1.0
  */
+
+/**
+ * [profitDriverPro_enqueue description]
+ * 
+ * @return [N/A] 
+ */
+function profitDriverPro_enqueue(){
+
+	//Tracking Software
+	
+
+
+	//CDN'S
+	wp_register_script( 
+		'jQuery',
+		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
+		array(),
+		null, 
+		true 
+	);
+	//Scripts
+	wp_enqueue_script(
+		'jQuery',
+		get_template_directory_uri() . '/assets/js/app.js',
+		array(),
+		'1.0.0',
+		true
+	);
+	wp_register_script( 
+		'jQuery',
+		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
+		array(),
+		null, 
+		true 
+	);
+	wp_enqueue_script(
+		'jQuery',
+		get_template_directory_uri() . '/assets/js/main.js',
+		array(),
+		'1.0.0',
+		true
+	);
+	//Styles
+	wp_enqueue_style(
+		'css',
+		get_template_directory_uri() . '/assets/css/main.css',
+		array(),
+		'1.0.0',
+		'all'
+	);
+	wp_enqueue_style(
+		'css',
+		'https://use.fontawesome.com/releases/v5.0.0/css/all.css',
+		array(),
+		null,
+		'all'
+	);
+	wp_enqueue_style(
+		'css',
+		get_template_directory_uri() . '/assets/css/style.css',
+		array(),
+		'4.9.5',
+		'all'
+	);
+	wp_enqueue_style(
+		'css',
+		get_template_directory_uri() . '/assets/css/app.css',
+		array(),
+		'1.0.0',
+		true
+	);
+
+
+
+
+
+
+}
+//Note first param must be a string. Just FYI...
+add_action('wp_enqueue_scripts','profitDriverPro_enqueue');
+
 function twentysixteen_setup() {
 	/*
 	 * Make theme available for translation.
@@ -80,8 +161,8 @@ function twentysixteen_setup() {
 	 *
 	 * @link https://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	 */
-	add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size( 1200, 9999 );
+	//add_theme_support( 'post-thumbnails' );
+	//set_post_thumbnail_size( 1200, 9999 );
 
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus( array(
