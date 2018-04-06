@@ -57,35 +57,49 @@ function profitDriverPro_enqueue(){
 
 
 	//CDN'S
+	//
+	//
+	//
+	//
+	//
+
+	// wp_register_script( 
+	// 	'scrollreveal',
+	// 	get_template_directory_uri() . '/assets/js/scrollreveal.min.js',  
+	// 	array('jQueryLoad'),
+	// 	null, 
+	// 	false 
+	// );
+	// wp_enqueue_script( 'cdn' );
+
+	 wp_register_script(
+	  	'app', 
+	 	get_template_directory_uri() . '/assets/js/app.js', 
+	 	array('jQueryLoad'),
+	 	NULL,
+	 	false );
+	 wp_enqueue_script( 'app' );
+
 	wp_register_script( 
-		'jQuery',
+		'jQueryLoad',
 		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
 		array(),
 		null, 
-		true 
+		false 
 	);
+	wp_enqueue_script( 'jQueryLoad' );
+
 	//Scripts
-	wp_enqueue_script(
-		'jQuery',
-		get_template_directory_uri() . '/assets/js/app.js',
-		array(),
-		'1.0.0',
-		true
-	);
-	wp_register_script( 
-		'jQuery',
-		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
-		array(),
-		null, 
-		true 
-	);
-	wp_enqueue_script(
-		'jQuery',
+
+	wp_register_script(
+		'main',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array(),
 		'1.0.0',
 		true
 	);
+	 wp_enqueue_script( 'main' );
+
 	//Styles
 	wp_enqueue_style(
 		'css',
@@ -115,11 +129,6 @@ function profitDriverPro_enqueue(){
 		'1.0.0',
 		true
 	);
-
-
-
-
-
 
 }
 //Note first param must be a string. Just FYI...

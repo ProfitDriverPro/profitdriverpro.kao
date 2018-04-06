@@ -29,7 +29,7 @@
                 <h5>WHO WE ARE<div class="line"></div></h5>
 				<h2>Profit Driver Pro is an intuitive data mining platform<br> that strives to help dealerships set sales records<br> and increase client retention.</h2>
             </div>
-            <div class="grid" data-sr-id="1" style="; visibility: visible;  -webkit-transform: translateY(100px) scale(1); opacity: 0;transform: translateY(100px) scale(1); opacity: 0;">
+            <div class="grid">
                 <div class="side">
                     <strong>PROFIT DRIVER PRO</strong><span>///</span>ADVANTAGE
                 </div>
@@ -83,10 +83,10 @@
 </section>
 <section id="grid">
 	<div class="section">
-		<div class="photo" data-sr-id="2" style=";visibility: visible;  -webkit-transform: translateY(100px) scale(1); opacity: 0;transform: translateY(100px) scale(1); opacity: 0;">
+		<div class="photo">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/excellence.jpg">
 		</div>
-		<div class="text" data-sr-id="4" style="; visibility: visible;  -webkit-transform: translateY(-100px) scale(1); opacity: 0;transform: translateY(-100px) scale(1); opacity: 0;">
+		<div class="text">
 			<h5>
 				<strong>PDP</strong><span>///</span>OUR MANDATE
 			</h5>
@@ -97,10 +97,10 @@
         <br style="clear:both;">
 	</div>
 	<div class="section">
-		<div class="photo" data-sr-id="3" style="; visibility: visible;  -webkit-transform: translateY(100px) scale(1); opacity: 0;transform: translateY(100px) scale(1); opacity: 0;">
+		<div class="photo"">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/training.jpg">
 		</div>
-		<div class="text" data-sr-id="5" style="; visibility: visible;  -webkit-transform: translateY(-100px) scale(1); opacity: 0;transform: translateY(-100px) scale(1); opacity: 0;">
+		<div class="text"">
             <div class="line"></div>
             <h5><strong>PDP</strong><span>///</span>OUR MANDATE</h5>
 			<h3>Fostering Success With Effective Software and In-Store Training.</h3>
@@ -114,7 +114,7 @@
 <section id="demo">
     <div class="divide"></div>
     <div class="contain">
-        <div class="text" data-sr-id="6" style="; visibility: visible;  -webkit-transform: translateY(100px) scale(1); opacity: 0;transform: translateY(100px) scale(1); opacity: 0;">
+        <div class="text"">
             <h5>Stay ahead of your competition.</h5>
             <h1>Request a demo today to see how Profit Driver Pro can help your dealership get the most out of your data and <br>achieve your business goals.</h1>
             <a href=""><div class="button">BOOK A DEMO</div></a>
@@ -131,6 +131,6 @@
 </section>
 <section id="touch">
     <div class="text"><strong>Get In Touch</strong> <span>Have a question or comment? Reach out, we'd be happy to help!</span></div>
-    <div class="phone"><strong>TOLL FREE</strong>1 (800) 295-9070</div>
+    <div class="phone"><strong>TOLL FREE</strong><a href="tel:18002959070" >1 (800) 295-9070</a></div>
     <div class="email"><a href="mailto:sales@profitdriverpro.com">sales@profitdriverpro.com</a></div>
 </section>
