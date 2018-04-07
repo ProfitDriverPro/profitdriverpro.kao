@@ -443,6 +443,13 @@ body { font-family: 'PT Sans', sans-serif; }
 	z-index: -1;
 }
 
+#form form {
+	width:50%;
+	display:block;
+	margin: 0 auto;
+
+}
+
 /* --- Demo --- */
 
 #demo {

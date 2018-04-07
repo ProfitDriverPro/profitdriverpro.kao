@@ -36,9 +36,6 @@
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-XXXX');</script> -->
 	<!-- End Google Tag Manager -->
-
-
-
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
@@ -52,25 +49,8 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header id="header" class="animated fadeInDown">
-            <a href="mailto:sales@profitdriverpro.com">
-                <div class="contact">
-                    sales@profitdriverpro.com
-                </div>
-            </a>
-			<div class="logo">
-				<a href="http://www.profitdriverpro.com"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-tag.png" alt="logo"></a>
-			</div>
-    <div class="navigation">
-	<?php 
-		wp_nav_menu(array(
-			'theme_location' => 'primary',
-		)); ?>
-	</div>
-</header>
-
-</header>
-	<div id="body_wrap" >
+<?php get_template_part( 'template-parts/core', 'header' ); ?>
+<div id="body_wrap">
 
 
 

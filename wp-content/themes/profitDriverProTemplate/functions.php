@@ -51,28 +51,7 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
  * @return [N/A] 
  */
 function profitDriverPro_enqueue(){
-
-	//Tracking Software
-	
-
-
-	//CDN'S
-	//
-	//
-	//
-	//
-	//
-
-	// wp_register_script( 
-	// 	'scrollreveal',
-	// 	get_template_directory_uri() . '/assets/js/scrollreveal.min.js',  
-	// 	array('jQueryLoad'),
-	// 	null, 
-	// 	false 
-	// );
-	// wp_enqueue_script( 'cdn' );
-
-	 wp_register_script(
+	wp_register_script(
 	  	'app', 
 	 	get_template_directory_uri() . '/assets/js/app.js', 
 	 	array('jQueryLoad'),
@@ -98,7 +77,7 @@ function profitDriverPro_enqueue(){
 		'1.0.0',
 		true
 	);
-	 wp_enqueue_script( 'main' );
+	wp_enqueue_script( 'main' );
 
 	//Styles
 	wp_enqueue_style(
@@ -129,19 +108,86 @@ function profitDriverPro_enqueue(){
 		'1.0.0',
 		true
 	);
-
 }
 
 
 function PDP_load_theme_setup(){
-
 	add_theme_support('menus');	
 	register_nav_menu('primary','The main Navigation that sticks on all pages.');
 }
 
+
+function sendMail( $POST ){
+
+	$email = $post_data['email'];
+	//$to = $post_data[''];
+	$message = "\n\nThe following information was received:\n";
+
+	if($post_data['comm_reason']){
+		$message .= "Reason for contact:".$comm_reason .'\n';
+	}
+	$message = $post_data['message'];
+	
+  	$to = 'christully12@gmail.com';
+	$subject = 'WebMail:';
+	$headers = 'From: '. $post_data['email'] . "\r\n" .
+	  'Reply-To: ' . $post_data['email'] . "\r\n";
+
+	$sent = wp_mail($to, $subject, strip_tags($message), $headers);
+	if($sent){
+		my_contact_form_generate_response("success", $message_sent); //message sent!	
+		return true;
+	} 
+	else{
+		my_contact_form_generate_response("error", "Something has gone wrong, please notify the system administrator"); 
+		return false;
+	} 
+}
+
+/**
+ * [validate_form_data description]
+ * @param  [type] $POST [description]
+ * @return [type]       [description]
+ */
+function validate_form_data($POST){
+	  	// Bot Validation
+		if($_POST['corporate_name']){
+			echo 'How did you get here?';
+			die();
+			return false;
+		}
+		//Validate $_POST fields	
+		var_dump($_POST);
+		foreach ($_POST as $key => $value) {
+	    	$value = trim($value);
+	    	if (empty($value)){
+	    		return true;
+	    	} else{
+	    		return false;
+	    	}
+	    }
+}
+
+
+/**
+ * [PDP_form_submission: handles form submission processing]
+ */
+function PDP_form_submission(){
+	if(isset($_POST)){
+		if ( validate_form_data($_POST) ){
+			echo 'validated!!';
+			//sendMail($_POST);		
+			//saveEntry($_POST);
+			wp_redirect( home_url().'/thank-you' );
+			exit;
+		
+		} // end if
+	}
+}
+
+
+add_action( 'init', 'PDP_form_submission' );
 add_action('init','PDP_load_theme_setup');
-
-
 //Note first param must be a string. Just FYI...
 add_action('wp_enqueue_scripts','profitDriverPro_enqueue');
 
