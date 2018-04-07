@@ -24,6 +24,5 @@ global $wp;
 		<a href="<?php echo home_url()?>"> <?php //We could set this to be a proper scroll to functionallity. ?>
 			<div class="button">Go Home</div>
 		</a>
-
     </div>
 </section>
