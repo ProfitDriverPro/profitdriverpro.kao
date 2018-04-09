@@ -12,8 +12,8 @@
  */
 
 global $wp;
- 
-  //response generation functio
+global $error_message;
+
 	get_header(); 
 ?>
 <?php get_template_part( 'template-parts/core', 'header' ); ?>
@@ -23,7 +23,7 @@ global $wp;
 		<h5>///</h5>
 		<h1>Contact Us</h1>
 		<p>Profit Driver Pro helps dealerships explore their databases with<br> intuitive functionality and intelligent automation.</p>
-		<a href="<?php echo home_url($wp->request ); ?>/#form"> <?php //We could set this to be a proper scroll to functionallity. ?>
+		<a href="<?php //echo home_url($wp->request ); ?>/#form"> <?php //We could set this to be a proper scroll to functionallity. ?>
 			<div class="button">Contact Us</div>
 		</a>
 
@@ -31,11 +31,18 @@ global $wp;
 </section>
 
 <section id="form">
-	<div class="error-message">
+	<?php 
 
-		<?php //echo $response; ?>
+		 
+	?>
+	<?php if( is_wp_error($error_message) ){ ?>
+	<div class="error-message" style="border:1px solid black;">
+		<?php 
+			echo $error_message->get_error_message();
+		 ?>
 	</div>
-	<form action="<?php echo  ?>" method="post">
+<?php } ?>
+	<form action="" method="post">
 		<div class="honey_pot">
 			<!-- This is a hidden field shhh don't tell the robots -->
 			<input type="text" value="" name="corporate_name" />
@@ -46,8 +53,8 @@ global $wp;
 		<input type="email" name="email" title="email" value="<?php echo esc_attr($_POST['email']); ?>" placeholder="Email..." required>
 		<label>Why're you contacting us?</label>
 		<select name="comm_reason">
-			<option value="n_a" title="default" selected>----</option>
-			<option value="demo" title="demo">I would like a demo</option>
+			<option value="No reason" title="default" selected>----</option>
+			<option value="Demo" title="demo">I would like a demo</option>
 		 	<option value="learn_more" title="Learn More">I want to learn more</option>
 		 	<option value="speak_more" title="Speak to some one">I would like to speak to some one</option>
 		 	<option value="comment" title="Leave a comment">Just wanted to leave a comment</option>

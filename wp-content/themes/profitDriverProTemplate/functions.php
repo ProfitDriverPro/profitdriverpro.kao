@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Twenty Sixteen functions and definitions
  *
@@ -50,15 +51,21 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
  * 
  * @return [N/A] 
  */
+
+
+/**
+ * [profitDriverPro_enqueue description]
+ * @return [type] [description]
+ */
 function profitDriverPro_enqueue(){
+
 	wp_register_script(
 	  	'app', 
 	 	get_template_directory_uri() . '/assets/js/app.js', 
 	 	array('jQueryLoad'),
 	 	NULL,
-	 	false );
-	 wp_enqueue_script( 'app' );
-
+	 	false
+	);
 	wp_register_script( 
 		'jQueryLoad',
 		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
@@ -66,10 +73,10 @@ function profitDriverPro_enqueue(){
 		null, 
 		false 
 	);
+	wp_enqueue_script( 'app' );
 	wp_enqueue_script( 'jQueryLoad' );
 
 	//Scripts
-
 	wp_register_script(
 		'main',
 		get_template_directory_uri() . '/assets/js/main.js',
@@ -109,86 +116,150 @@ function profitDriverPro_enqueue(){
 		true
 	);
 }
-
-
+/**
+ * [PDP_load_theme_setup base hookins]
+ */
 function PDP_load_theme_setup(){
+
 	add_theme_support('menus');	
 	register_nav_menu('primary','The main Navigation that sticks on all pages.');
 }
 
-
-function sendMail( $POST ){
-
-	$email = $post_data['email'];
-	//$to = $post_data[''];
-	$message = "\n\nThe following information was received:\n";
-
-	if($post_data['comm_reason']){
-		$message .= "Reason for contact:".$comm_reason .'\n';
-	}
-	$message = $post_data['message'];
+/**
+ * [saveEntry Saves a submitted contact form.]
+ * @param  [Array] $POST [ a copy of the $_POST array]
+ * @return [BOOL]       [TRUE | FALSE]
+ */
+function saveEntry($POST){
 	
-  	$to = 'christully12@gmail.com';
-	$subject = 'WebMail:';
-	$headers = 'From: '. $post_data['email'] . "\r\n" .
-	  'Reply-To: ' . $post_data['email'] . "\r\n";
+	global $wpdb;
+	
+	$table = $wpdb->prefix . "custom_contact";
+	
+	$name = sanitize_text_field($POST['name']);
+	$email = sanitize_email($POST['email']);
+	$contact_reason = sanitize_text_field($POST['comm_reason']);
+	$comment = sanitize_text_field($POST['comment']);
 
-	$sent = wp_mail($to, $subject, strip_tags($message), $headers);
-	if($sent){
-		my_contact_form_generate_response("success", $message_sent); //message sent!	
+	$wpdb->query("INSERT INTO wp_custom_contact 
+		(name, email, contact_reason, comment)
+		VALUES 
+		(
+			'$name',
+			'$email',
+			'$contact_reason',
+			'$comment'
+		)"
+	);
+
+	if($wpdb->rows_affected > 0){
 		return true;
-	} 
-	else{
-		my_contact_form_generate_response("error", "Something has gone wrong, please notify the system administrator"); 
+	} else{
 		return false;
-	} 
+	}
 }
 
 /**
- * [validate_form_data description]
- * @param  [type] $POST [description]
- * @return [type]       [description]
+ * [sendMail Notifies user and admin about submission]
+ * @param  [ Array ] $POST [a copy of the $_POST array]
+ * @return [BOOL]       [TRUE | FALSE]
  */
-function validate_form_data($POST){
-	  	// Bot Validation
-		if($_POST['corporate_name']){
-			echo 'How did you get here?';
-			die();
-			return false;
-		}
-		//Validate $_POST fields	
-		var_dump($_POST);
-		foreach ($_POST as $key => $value) {
-	    	$value = trim($value);
-	    	if (empty($value)){
-	    		return true;
-	    	} else{
-	    		return false;
-	    	}
-	    }
+function sendMail( $POST ){
+
+	// $email = $post_data['email'];
+	// //$to = $post_data[''];
+	// $message = "\n\nThe following information was received:\n";
+
+	// if($post_data['comm_reason']){
+	// 	$message .= "Reason for contact:".$comm_reason .'\n';
+	// }
+	// $message = $post_data['message'];
+	
+ //  	$to = 'christully12@gmail.com';
+	// $subject = 'WebMail:';
+	// $headers = 'From: '. $post_data['email'] . "\r\n" .
+	//   'Reply-To: ' . $post_data['email'] . "\r\n";
+
+	// $sent = wp_mail($to, $subject, strip_tags($message), $headers);
+	// if($sent){
+	// 	//my_contact_form_generate_response("success", $message_sent); //message sent!	
+		
+	// 	return true;
+	// } 
+	// else{
+	// 	echo 'fail';
+	// 	die();
+	// 	//my_contact_form_generate_response("error", "Something has gone wrong, please notify the system administrator"); 
+	// 	return false;
+	// } 
+	return true;
 }
 
+/**
+ * [validate_form_data  Validates form data, will trip false if honey pot is detected.]
+ * @param  [Array] $POST a passed in $_POST array
+ * @return [BOOL]       [TRUE | FALSE]
+ */
+function validate_form_data($POST){
+	global $error_message;
+	$error_message = new WP_Error();
+
+  	if($POST['corporate_name']){
+		return false;
+	}	
+		// //Validate $_POST fields		
+	foreach ($POST as $key => $value) {
+
+    	$value = trim($value);  		
+    	if( $POST['corporate_name'] ){
+    		continue;
+    	}
+    	if(!("" == trim($value))){
+    		continue;    		
+    	} else{
+    		if(!empty($value)){
+				$error_message->add('Missing Data', 'You are missing the following: '.$key); 
+    		}
+    	}
+    }
+
+    if(is_wp_error($error_message)){
+    	return true;
+    } else{
+    	return false;
+    }
+}
 
 /**
  * [PDP_form_submission: handles form submission processing]
  */
 function PDP_form_submission(){
-	if(isset($_POST)){
-		if ( validate_form_data($_POST) ){
-			echo 'validated!!';
-			//sendMail($_POST);		
-			//saveEntry($_POST);
-			wp_redirect( home_url().'/thank-you' );
-			exit;
+	// echo (isset($_POST));
+	// print_r($_POST);
+	if(!empty($_POST)){
+		if ( validate_form_data($_POST ) ){	
+			$POST = $_POST;
+
+			if( sendMail($POST) &&	saveEntry($POST)){
+				wp_redirect( home_url().'/thank-you' );
+				exit;
+			} else{
+				echo 'ahh!';
+				die();
+				global $error_message;
+				$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
+				wp_redirect( home_url().'/contact-us?error=true' );
+				exit;
+			}
+		} // end if 
 		
-		} // end if
 	}
 }
 
 
+
 add_action( 'init', 'PDP_form_submission' );
 add_action('init','PDP_load_theme_setup');
-//Note first param must be a string. Just FYI...
 add_action('wp_enqueue_scripts','profitDriverPro_enqueue');
 
 function twentysixteen_setup() {
