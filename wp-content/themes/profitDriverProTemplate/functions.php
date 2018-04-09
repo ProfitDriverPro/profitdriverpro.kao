@@ -131,7 +131,7 @@ function PDP_load_theme_setup(){
  * @return [BOOL]       [TRUE | FALSE]
  */
 function saveEntry($POST){
-	
+
 	global $wpdb;
 	
 	$table = $wpdb->prefix . "custom_contact";
@@ -234,18 +234,21 @@ function validate_form_data($POST){
  * [PDP_form_submission: handles form submission processing]
  */
 function PDP_form_submission(){
-	// echo (isset($_POST));
-	// print_r($_POST);
+
+
 	if(!empty($_POST)){
+		
 		if ( validate_form_data($_POST ) ){	
 			$POST = $_POST;
 
 			if( sendMail($POST) &&	saveEntry($POST)){
+
+				unset($POST);
+				unset($_POST);
+			
 				wp_redirect( home_url().'/thank-you' );
 				exit;
 			} else{
-				echo 'ahh!';
-				die();
 				global $error_message;
 				$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
 				wp_redirect( home_url().'/contact-us?error=true' );

@@ -13,7 +13,7 @@
         <h5>///</h5>
 		<h1>A powerful ALL-IN-ONE solution for <br>PROACTIVE dealerships.</h1>
 		<p>Profit Driver Pro helps dealerships explore their databases with<br> intuitive functionality and intelligent automation.</p>
-		<a href="<?php echo get_page_link('7'); ?>">
+		<a href="">
 			<div class="button">BOOK A DEMO</div>
 		</a>
 
