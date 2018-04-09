@@ -16,6 +16,7 @@
 
 get_header(); ?>
 	<?php get_template_part( 'template-parts/content', 'home' ); ?>
+	<?php get_template_part( 'template-parts/core', 'modal' ); ?>
 
 <?php //get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -2,6 +2,11 @@ body { font-family: 'PT Sans', sans-serif; }
 
 /* --- Header --- */
 
+.honey_pot{
+	display:none;
+
+}
+
 #header {
 	position: absolute;
 	top: 0;
@@ -40,6 +45,65 @@ body { font-family: 'PT Sans', sans-serif; }
 #form{
 	background-color:#ffffff;
 	padding:50px;
+}
+
+#error-message{
+	width:50%;
+	display:block;
+	margin: 0 auto;
+	height:auto;
+}
+#error-message p{
+	font-size:1.4em;
+	color:#cc0000;
+	text-align:center;
+	padding-top:15px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index:3;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    z-index:3;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index:3;
+    position:relative;
+    top:-30px;
+    right:calc(100% - 102%)
+}
+
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #header .logo img { width: 100%; }
@@ -141,6 +205,24 @@ body { font-family: 'PT Sans', sans-serif; }
 }
 
 #masthead .text .button:hover { background: #f1233a; color: #fff; }
+
+.btn_red{
+	display: inline-block;
+    padding: 18px 38px;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #f1233a;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    border-radius: 500px;
+}
+
+.btn_red:hover{
+	background: #f1233a;
+    color: #fff;
+}
 
 #masthead .side {
 	position: absolute;
@@ -476,6 +558,48 @@ body { font-family: 'PT Sans', sans-serif; }
 	bottom: 0;
 	background: #f4f5f8;
 	z-index: -1;
+}
+
+#demoForm{
+	 overflow: hidden;
+}
+
+#demoForm button{
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 0px solid #000000;
+}
+
+#demoForm button:hover{
+	background-color:white;
+	color:#000000;
+	border:1px solid black;
+
+}
+
+#demoForm input, #demoForm textarea{
+	float: right;
+    width: calc(100% - 200px);
+    padding-bottom:10px;
+    margin-bottom:15px;
+}
+
+
+#demoForm label{
+   float: left;
+   width: 200px;
+   padding-right: 24px;
+   padding-top: 20px;
+   line-height:2em;
+}
+
+#demoForm button{
+	display: block;
+    clear: both;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 15px;
 }
 
 /* --- Demo --- */
@@ -1018,4 +1142,80 @@ body { font-family: 'PT Sans', sans-serif; }
 }
 
 
+.ui-timepicker-wrapper {
+    overflow-y: auto;
+    max-height: 150px;
+    width: 7.5em;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    outline: 0;
+    z-index: 10001;
+    margin: 0
+}
+
+.ui-timepicker-wrapper.ui-timepicker-with-duration {
+    width: 13em
+}
+
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-30,
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-60 {
+    width: 11em
+}
+
+.ui-timepicker-list {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.ui-timepicker-duration {
+    margin-left: 5px;
+    color: #888
+}
+
+.ui-timepicker-list:hover .ui-timepicker-duration {
+    color: #888
+}
+
+.ui-timepicker-list li {
+    padding: 3px 0 3px 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #000;
+    list-style: none;
+    margin: 0;
+    text-align:center;
+}
+
+.ui-timepicker-list:hover .ui-timepicker-selected {
+    background: #fff;
+    color: #000
+}
+
+li.ui-timepicker-selected,
+.ui-timepicker-list li:hover,
+.ui-timepicker-list .ui-timepicker-selected:hover {
+    background: #1980EC;
+    color: #fff
+}
+
+li.ui-timepicker-selected .ui-timepicker-duration,
+.ui-timepicker-list li:hover .ui-timepicker-duration {
+    color: #ccc
+}
+
+.ui-timepicker-list li.ui-timepicker-disabled,
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+    color: #888;
+    cursor: default
+}
+
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+    background: #f2f2f2
+}
 

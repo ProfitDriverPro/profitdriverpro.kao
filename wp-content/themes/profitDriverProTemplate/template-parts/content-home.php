@@ -13,11 +13,8 @@
         <h5>///</h5>
 		<h1>A powerful ALL-IN-ONE solution for <br>PROACTIVE dealerships.</h1>
 		<p>Profit Driver Pro helps dealerships explore their databases with<br> intuitive functionality and intelligent automation.</p>
-		<a href="">
-			<div class="button">BOOK A DEMO</div>
-		</a>
-
-	</div>
+		<button class="button" onclick="modalPop();">BOOK A DEMO</button>
+    </div>
     <div class="side">
         <div class="line"></div>
         01
@@ -117,7 +114,7 @@
         <div class="text"">
             <h5>Stay ahead of your competition.</h5>
             <h1>Request a demo today to see how Profit Driver Pro can help your dealership get the most out of your data and <br>achieve your business goals.</h1>
-            <a href=""><div class="button">BOOK A DEMO</div></a>
+            <button class="button btn_red" onclick="modalPop();">BOOK A DEMO</button>
         </div>
     </div>
 </section>

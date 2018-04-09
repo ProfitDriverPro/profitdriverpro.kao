@@ -80,7 +80,7 @@ function profitDriverPro_enqueue(){
 	wp_register_script(
 		'main',
 		get_template_directory_uri() . '/assets/js/main.js',
-		array(),
+		array('app'),
 		'1.0.0',
 		true
 	);
@@ -130,28 +130,16 @@ function PDP_load_theme_setup(){
  * @param  [Array] $POST [ a copy of the $_POST array]
  * @return [BOOL]       [TRUE | FALSE]
  */
-function saveEntry($POST){
-
+function saveEntry($POST, $table_name){
 	global $wpdb;
 	
-	$table = $wpdb->prefix . "custom_contact";
-	
-	$name = sanitize_text_field($POST['name']);
-	$email = sanitize_email($POST['email']);
-	$contact_reason = sanitize_text_field($POST['comm_reason']);
-	$comment = sanitize_text_field($POST['comment']);
+	$table = $wpdb->prefix . $table_name;
+	$cleaned_data = array();
 
-	$wpdb->query("INSERT INTO wp_custom_contact 
-		(name, email, contact_reason, comment)
-		VALUES 
-		(
-			'$name',
-			'$email',
-			'$contact_reason',
-			'$comment'
-		)"
-	);
-
+	foreach($POST as $key => $value){
+		$cleaned_data[$wpdb->prefix.sanitize_text_field($key)] = sanitize_text_field($value);
+	}
+	$wpdb->insert($table,$cleaned_data);
 	if($wpdb->rows_affected > 0){
 		return true;
 	} else{
@@ -202,6 +190,7 @@ function sendMail( $POST ){
  */
 function validate_form_data($POST){
 	global $error_message;
+
 	$error_message = new WP_Error();
 
   	if($POST['corporate_name']){
@@ -219,8 +208,10 @@ function validate_form_data($POST){
     	} else{
     		if(!empty($value)){
 				$error_message->add('Missing Data', 'You are missing the following: '.$key); 
+
     		}
     	}
+
     }
 
     if(is_wp_error($error_message)){
@@ -234,14 +225,26 @@ function validate_form_data($POST){
  * [PDP_form_submission: handles form submission processing]
  */
 function PDP_form_submission(){
-
-
 	if(!empty($_POST)){
-		
 		if ( validate_form_data($_POST ) ){	
 			$POST = $_POST;
+			$table_name = '';
 
-			if( sendMail($POST) &&	saveEntry($POST)){
+			switch($POST['form_name']){
+				case 'demoForm':
+					$table_name = 'cust_demo_form';
+				break;
+				case 'contactForm':
+					$table_name = 'custom_contact';
+				break;
+				default:
+				break;
+			}
+			//clean out unnecessary data
+			unset($POST['corporate_name']);
+			unset($POST['form_name']);
+
+			if( sendMail($POST) &&	saveEntry($POST,$table_name)){
 
 				unset($POST);
 				unset($_POST);
@@ -254,12 +257,9 @@ function PDP_form_submission(){
 				wp_redirect( home_url().'/contact-us?error=true' );
 				exit;
 			}
-		} // end if 
-		
+		} 
 	}
 }
-
-
 
 add_action( 'init', 'PDP_form_submission' );
 add_action('init','PDP_load_theme_setup');
