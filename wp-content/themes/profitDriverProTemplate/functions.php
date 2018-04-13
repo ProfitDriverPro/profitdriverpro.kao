@@ -33,6 +33,11 @@ if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
 }
 
+if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
+ 	require get_template_directory() . '/inc/function-admin.php';
+}
+
+
 if ( ! function_exists( 'twentysixteen_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -226,6 +231,14 @@ function validate_form_data($POST){
  */
 function PDP_form_submission(){
 	if(!empty($_POST)){
+
+		if($_POST['wp-submit'] == 'Log In'){
+			return true;
+		}
+
+		print_r($_POST);
+		print_r($_SERVER);
+		die();
 		if ( validate_form_data($_POST ) ){	
 			$POST = $_POST;
 			$table_name = '';

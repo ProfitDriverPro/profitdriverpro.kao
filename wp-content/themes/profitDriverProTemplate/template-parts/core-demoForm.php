@@ -1,3 +1,4 @@
+	<?php get_template_part( 'template-parts/core', 'errorBlock' ); ?>
 	<form id="demoForm" name="demoForm" action="" method="post">
 		<div class="honey_pot">
 			<input type="text" value="" name="corporate_name" /><!-- This is a hidden field shhh don't tell the robots -->
@@ -11,7 +12,7 @@
 		<input type="text" name="dealership" title="Dealership / Group" placeholder="Dealership / Group...">
 
 		<label for="comments">Prefered Time</label>
-		<input id="scrollDefaultExample" name="prefered_time" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Prefered Time...">
+		<input id="scrollDefaultExample" name="prefered_time" type="text" class="time ui-timepicker-input" autocomplete="off" placeholder="Prefered Time..." >
 		<label for="comments">Comments</label>
 		<textarea title="comments" placeholder="comments" name="comments" value="<?php echo esc_attr($_POST['comments']); ?>" ></textarea>
 		<button type="submit">Book a Demo</button>

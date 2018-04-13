@@ -45,7 +45,7 @@
 
 </head>
 
-<body data-gr-c-s-loaded="true" <?php body_class(); ?>
+<body data-gr-c-s-loaded="true" <?php body_class(); ?>>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 

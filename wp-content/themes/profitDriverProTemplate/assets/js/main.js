@@ -15,8 +15,6 @@ $(document).ready(function() {
     });
 
 	modalMagic();
-
-
 });
 
 
@@ -45,13 +43,17 @@ function modalMagic(){
 	var	span = document.getElementsByClassName("close")[0],
 		modal = document.getElementById('myModal');
 	
-	span.onclick = function() {
-	    modal.style.display = "none";
+	if(span.length > 0 ){
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}
+		
 	}
-
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
+	if(modal.length > 0 ){
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
 	}
 }
