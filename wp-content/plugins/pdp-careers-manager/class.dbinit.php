@@ -37,4 +37,53 @@ class DBInit{
 		dbDelta( $sql );
 	}
 
+
+	// function save_submissions($post){
+	// 	global $wpdb;
+		
+	// 	$table = $TABLE_NAME;
+	// 	$cleaned_data = array();
+
+	// 	foreach($POST as $key => $value){
+	// 		$cleaned_data[$wpdb->prefix.sanitize_text_field($key)] = sanitize_text_field($value);
+	// 	}
+	// 	$wpdb->insert($table,$cleaned_data);
+	// 	if($wpdb->rows_affected > 0){
+	// 		return true;
+	// 	} else{
+	// 		return false;
+	// 	}
+	// }
+
+	/**
+	 * [validate_form_data  Validates form data, will trip false if honey pot is detected.]
+	 * @param  [Array] $POST a passed in $_POST array
+	 * @return [BOOL]       [TRUE | FALSE]
+	 */
+	// function pdp_validate_form_data($POST){
+	// 	global $error_message;
+	// 	echo 'inside validation';
+	// 	die();
+	// 	$error_message = new WP_Error();	
+	// 		// //Validate $_POST fields		
+	// 	foreach ($POST as $key => $value) {
+	//     	$value = trim($value);  		
+	//     	if(!("" == trim($value))){
+	//     		continue;    		
+	//     	} else{
+	//     		if(!empty($value)){
+	// 				$error_message->add('Missing Data', 'You are missing the following: '.$key); 
+
+	//     		}
+	//     	}
+
+	//     }
+
+	//     if(is_wp_error($error_message)){
+	//     	return true;
+	//     } else{
+	//     	return false;
+	//     }
+	// }
+
 }
