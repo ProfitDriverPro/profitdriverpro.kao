@@ -1,0 +1,31 @@
+.pdp_wrap input{
+	float:left;
+	display:inline-block;
+	margin-bottom:15px;
+}
+
+.pdp_wrap select{
+	float:left;
+	display:inline-block;
+	margin-bottom:15px;
+}
+
+.pdp_wrap label{
+	float:left;
+	display:inline-block;
+	clear:both;
+	padding-right:15px;
+}
+
+.pdp_wrap .pdp_body_wrap{
+	display: inline-block;
+    float: left;
+    clear: both;
+    width:90%;
+}
+
+.pdp_wrap input[type="submit"]{
+	float:left;
+	clear:both;
+	margin-top:15px;
+}
