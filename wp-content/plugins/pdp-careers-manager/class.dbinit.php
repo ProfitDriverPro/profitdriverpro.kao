@@ -1,10 +1,8 @@
 <?php 
 class DBInit{
 	
-
 	protected $TABLE_NAME;
 
-	
 	function plugin_activation(){
 
 		global $wpdb;
@@ -26,10 +24,7 @@ class DBInit{
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
-
-}
-
-
+	}
 	function plugin_deactivation(){
 		global $wpdb;
 		$TABLE_NAME = $wpdb->prefix . 'careers_posts';
@@ -40,7 +35,6 @@ class DBInit{
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
-
 	}
 
 }
