@@ -3,32 +3,39 @@
 	<h2>Add a new posting</h2>
 	<?php settings_errors(); ?>
 	<form  class="" method="POST" action="options.php">
-		
+		<script src="//cdn.tinymce.com/4/tinymce.min.js" type="text/javascript"></script>
+
+
 		<?php settings_fields('pdp-careers-entries'); ?>
 		<?php do_settings_sections('careers-manager') ?>
 
-		<div class="pdp_body_wrap">
-			<?php 
-			$content = 'Initial content for the editor.';
-			$editor_id = 'editor';
-			$settings =   array(
-			    'wpautop' => true, //Whether to use wpautop for adding in paragraphs. Note that the paragraphs are added automatically when wpautop is false.
-			    'media_buttons' => true, //Whether to display media insert/upload buttons
-			    'textarea_name' => $editor_id, // The name assigned to the generated textarea and passed parameter when the form is submitted.
-			    'tabindex' => '', //The tabindex value used for the form field
-			    'editor_css' => '', // Additional CSS styling applied for both visual and HTML editors buttons, needs to include <style> tags, can use "scoped"
-			    'editor_class' => 'pdp_editor', // Any extra CSS Classes to append to the Editor textarea
-			    'teeny' => false, // Whether to output the minimal editor configuration used in PressThis
-			    'dfw' => false, // Whether to replace the default fullscreen editor with DFW (needs specific DOM elements and CSS)
-			    'tinymce' => true, // Load TinyMCE, can be used to pass settings directly to TinyMCE using an array
-			    'quicktags' => true, // Load Quicktags, can be used to pass settings directly to Quicktags using an array. Set to false to remove your editor's Visual and Text tabs.
-			    'drag_drop_upload' => true //Enable Drag & Drop Upload Support (since WordPress 3.9) 
-			);
+		<div class="pdp_body_wrap" >
+			<h2 class="editable">Editable header</h2>
 
-			 wp_editor( $content, $editor_id, $settings );
-			?>
+			<textarea id="elm1" name="elm1" rows="15" cols="80"></textarea>
+
+			</div>
 		</div>
+		<script>
+			// tinymce.init({			 
+			// });
+			tinymce.init({
+			  
+    			mode: "exact",
+    			elements : "elm1",
 
+			  plugins: [
+			    'advlist autolink lists link image charmap print preview anchor',
+			    'searchreplace visualblocks code fullscreen',
+			    'insertdatetime media table contextmenu paste'
+			  ],
+			  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			  content_css: [
+			    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+			    '//www.tinymce.com/css/codepen.min.css']
+			});
+
+		</script>
 		<?php submit_button(); ?>
 	</form>
 

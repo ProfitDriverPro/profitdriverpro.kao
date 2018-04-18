@@ -31,3 +31,5 @@
 }
 
 .pdp_editor {color:#000000 !important}
+
+p.submit { display:block; clear:both; }

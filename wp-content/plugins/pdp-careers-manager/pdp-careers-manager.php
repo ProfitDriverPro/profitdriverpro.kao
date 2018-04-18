@@ -36,7 +36,15 @@ function my_admin_menu() {
 		'careers-manager',
 		'pdp_init',
 		6  );  //<-- replaes the default page 
-
+		wp_register_script( 
+		'jQueryLoad',
+		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
+		array(),
+		null, 
+		false 
+	);
+	
+	wp_enqueue_script( 'jQueryLoad' );
 	//we fire this here to ensure the function doesn't run in the event the page doesn't run.
 	add_action('admin_init', 'pdp_custom_settings');
 }
@@ -162,33 +170,39 @@ function pdp_department_name(){
 /**
  * [PDP_form_submission: handles form submission processing]
  */
-function monkey_form_submission_handler(){
+function pdp_init_handler(){
 	
-	// if(!empty($_POST)){
-
-	// 	if($_POST['wp-submit'] == 'Log In'){
-	// 		return true;
-	// 	}
-	// 	if ( pdp_validate_form_data($_POST ) ){	
-	// 		$POST = $_POST;
-	// 		$table_name = '';
+	if(!empty($_POST)){
+		//bypass login form stuff
+		if($_POST['wp-submit'] == 'Log In'){
+			return true;
+		} 	//Add post security here
+		
+		var_dump($_POST);
+		die();
+		//We have to assume that some one within this section isn't going to do malacious stuff. So we can't
+		//really sanatize all the post fields.
+		
+	// 	// if ( pdp_validate_form_data($_POST ) ){	
+	// 	// 	$POST = $_POST;
+	// 	// 	$table_name = '';
 
 			
-	// 		//clean out unnecessary data
+	// 	// 	//clean out unnecessary data
 			
-	// 		} else{
-	// 			global $error_message;
-	// 			$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
-	// 			wp_redirect( home_url().'/contact-us?error=true' );
-	// 			exit;
-	// 		}
-	// 	} 
-	// }
+	// 	// 	} else{
+	// 	// 		global $error_message;
+	// 	// 		$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
+	// 	// 		wp_redirect( home_url().'/contact-us?error=true' );
+	// 	// 		exit;
+	// 	// 	}
+	// 	// } 
+	 }
 }
 
 
 
-// add_action( 'init', 'form_submission_handler' );
+ add_action( 'init', 'pdp_init_handler' );
 
 // /**
 //  * [pdp_delete_post deletes an entry]
