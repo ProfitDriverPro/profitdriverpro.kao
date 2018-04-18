@@ -13,16 +13,13 @@
 		<div class="location">Location</div>
 	</li>
 	<li>
-	<?php
-		if(!empty($results)):
-			foreach($results as $result):		
-	 ?>
-		<div class="type">&nbsp;<div class="department"><?php echo $result->department_name ?></div></div>
-		<div class="position"><?php echo $result->position_name ?></div>
-		<div class="location"><?php echo $result->location_name ?></div>
-		<a href="http://www.profitdriverpro.com/career?posting=<?php echo $result->id ?>"><div class="button">View</div></a>
-	<?php endforeach; 
-		endif;
-	?>
+	<?php 	if(!empty($results)):
+				foreach($results as $result):	?>
+					<div class="type">&nbsp;<div class="department"><?php echo $result->department_name ?></div></div>
+					<div class="position"><?php echo $result->position_name ?></div>
+					<div class="location"><?php echo $result->location_name ?></div>
+					<a href="<?php echo esc_url( home_url( '/careers/posting?post='.$result->id ) ); ?>"><div class="button">View</div></a>
+		<?php endforeach; 
+			endif;	?>
 	</li>
 </ul>
