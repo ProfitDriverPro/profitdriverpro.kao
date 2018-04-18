@@ -13,12 +13,14 @@ Author: Chris Tully
 
 require_once( dirname( __FILE__ ).'/class.dbinit.php' );
 
- register_activation_hook(  __FILE__ ,array('DBInit','plugin_activation'));
- register_deactivation_hook( dirname( __FILE__ ), array( 'DBInit', 'plugin_deactivation' ) );
+register_activation_hook(  __FILE__ ,array('DBInit','plugin_activation'));
+register_deactivation_hook( dirname( __FILE__ ), array( 'DBInit', 'plugin_deactivation' ) );
 
 add_action( 'admin_menu', 'my_admin_menu' );
+add_action( 'init',array('DBInit', 'pdp_init_handler'));
 
-function my_admin_menu() {	
+function my_admin_menu() {
+
 	add_menu_page( 
 		'PDP | Careers Manager',
 		'PDP - Careers Manager',
@@ -35,7 +37,7 @@ function my_admin_menu() {
 		'manage_options',
 		'careers-manager',
 		'pdp_init',
-		6  );  //<-- replaes the default page 
+		6  );  
 		wp_register_script( 
 		'jQueryLoad',
 		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
@@ -45,23 +47,22 @@ function my_admin_menu() {
 	);
 	
 	wp_enqueue_script( 'jQueryLoad' );
-	//we fire this here to ensure the function doesn't run in the event the page doesn't run.
 	add_action('admin_init', 'pdp_custom_settings');
 }
 
+/**
+ * [pdp_init handles base initilization of admin components]
+ * @return [type] [description]
+ */
 function pdp_init(){
-
 	require_once( dirname( __FILE__ ) . '/views/master.php' );
 	require_once( dirname( __FILE__ ) . '/includes/form.php' );
-	require_once( dirname( __FILE__ ) . '/includes/models/db.init.php');
-
-	
 }
 
-// /**
-//  * [pdp_custom_settings Base init]
-//  * @return [type] [description]
-//  */
+/**
+ * [pdp_custom_settings Base init]
+ * @return [type] [description]
+ */
 function pdp_custom_settings(){
 	//Register fields
 	register_setting('pdp-careers-entries','department_name');
@@ -90,7 +91,6 @@ function pdp_department_name(){
 			'type' => 'select',
 			'description' => 'Please select a department.',
 			'options' => [
-
 				'option' =>[
 					'value' => '---',
 					'selected' => TRUE,
@@ -142,7 +142,7 @@ function pdp_department_name(){
 				echo '<p class="description">'.$input["description"].'</p>';
 				break;
 			case 'select':
-				 echo '<label for="'.$input["name"].'">Department Name:</label>  <select title="'.$input["title"].'" name="'.$input["name"].' class="'.$input["classes"].'">';
+				 echo '<label for="'.$input["name"].'">Department Name:</label>  <select title="'.$input["title"].'" name="'.$input["name"].'" class="'.$input["classes"].'">';
 					foreach ( $input['options'] as $option){
 						echo '<option title="'.$option["title"].'" value="'.$option["value"].'">'.$option["value"].'</option>';
 					}
@@ -156,53 +156,6 @@ function pdp_department_name(){
 }
 
 
-// function pdp_santize_text( $user_input ){
-	
-// 	$output = sanatize_text_field($user_input);
-
-// 	return $output;
-// }
-
-
-
-
-
-/**
- * [PDP_form_submission: handles form submission processing]
- */
-function pdp_init_handler(){
-	
-	if(!empty($_POST)){
-		//bypass login form stuff
-		if($_POST['wp-submit'] == 'Log In'){
-			return true;
-		} 	//Add post security here
-		
-		var_dump($_POST);
-		die();
-		//We have to assume that some one within this section isn't going to do malacious stuff. So we can't
-		//really sanatize all the post fields.
-		
-	// 	// if ( pdp_validate_form_data($_POST ) ){	
-	// 	// 	$POST = $_POST;
-	// 	// 	$table_name = '';
-
-			
-	// 	// 	//clean out unnecessary data
-			
-	// 	// 	} else{
-	// 	// 		global $error_message;
-	// 	// 		$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
-	// 	// 		wp_redirect( home_url().'/contact-us?error=true' );
-	// 	// 		exit;
-	// 	// 	}
-	// 	// } 
-	 }
-}
-
-
-
- add_action( 'init', 'pdp_init_handler' );
 
 // /**
 //  * [pdp_delete_post deletes an entry]
