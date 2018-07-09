@@ -64,18 +64,18 @@
 	                </li>
             	</ul>
 				<div class="top">
-                <div class="logo">
-    				<img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-tag.png">
-    			</div>
-                <div class="social">
-                    <i class="fab fa-linkedin"></i>
-                    <i class="fab fa-facebook-square"></i>
-                    <i class="fab fa-instagram"></i>
-                </div>
-                <ul class="navigation">
-                   <a href="http://www.profitdriverpro.com/terms"><li>Terms & Conditions</li></a>
-                   <a href="http://www.profitdriverpro.com/privacy"><li>Privacy Policy</li></a>
-               </ul>
+	                <div class="logo">
+	    				<img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo-tag.png">
+	    			</div>
+	                <div class="social">
+	                    <i class="fab fa-linkedin"></i>
+	                    <i class="fab fa-facebook-square"></i>
+	                    <i class="fab fa-instagram"></i>
+	                </div>
+	                <ul class="navigation">
+	                   <a href="http://www.profitdriverpro.com/terms"><li>Terms & Conditions</li></a>
+	                   <a href="http://www.profitdriverpro.com/privacy"><li>Privacy Policy</li></a>
+	               </ul>
             	</div>
 
             	<!-- Need to add Sitemap.xml, links to internal pages -->

@@ -14,6 +14,8 @@
 global $wp;
 global $error_message;
 
+
+
 	get_header(); 
 ?>
 <?php get_template_part( 'template-parts/core', 'header' ); ?>

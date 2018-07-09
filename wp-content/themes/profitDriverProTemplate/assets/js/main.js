@@ -9,12 +9,22 @@ $(document).ready(function() {
 		sr.reveal('#demo .text', {origin: 'bottom', duration: 1200, distance: '100px', scale: 1, easing: 'ease'});
 	}
 
-
     $(function() {
         $('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });
     });
 
-	modalMagic();
+});
+
+var $document = $(document),
+    $element = $('#some-element'),
+    className = 'hasScrolled';
+
+$document.scroll(function() {
+  if ($document.scrollTop() >= 750) {
+    $('#floater').show();
+  } else {
+    $('#floater').hide();
+  }
 });
 
 
@@ -40,20 +50,6 @@ function modalPop(){
 
 function modalMagic(){
 
-	var	span = document.getElementsByClassName("close")[0],
-		modal = document.getElementById('myModal');
-	
-	if(span.length > 0 ){
-		span.onclick = function() {
-		    modal.style.display = "none";
-		}
-		
-	}
-	if(modal.length > 0 ){
-		window.onclick = function(event) {
-		    if (event.target == modal) {
-		        modal.style.display = "none";
-		    }
-		}
-	}
+	modal = document.getElementById('myModal').style.display = "none";;
+
 }

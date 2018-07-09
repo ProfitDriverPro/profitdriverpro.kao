@@ -7,10 +7,6 @@ Version: 1.1
 Author: Chris Tully
 */
 
-///Applications/MAMP/htdocs/profitdriverpro.kao/wp-content/plugins/akismet/akismet.php
-
-// echo dirname( __FILE__ ).'/class.dbinit.php';
-
 require_once( dirname( __FILE__ ).'/class.dbinit.php' );
 
 register_activation_hook(  __FILE__ ,array('DBInit','plugin_activation'));
@@ -19,6 +15,10 @@ register_deactivation_hook( dirname( __FILE__ ), array( 'DBInit', 'plugin_deacti
 add_action( 'admin_menu', 'my_admin_menu' );
 add_action( 'init',array('DBInit', 'pdp_init_handler'));
 
+/**
+ * [my_admin_menu Base menu page additions]
+ * @return [type] [n/a]
+ */
 function my_admin_menu() {
 
 	add_menu_page( 
@@ -81,6 +81,10 @@ function pdp_custom_settings(){
 	add_settings_field('cdepartment_id','department_name','pdp_department_name','careers-manager','pdp-careers-group');
 }
 
+/**
+ * [pdp_department_name Outputs the form elements]
+ * @return [type] [description]
+ */
 function pdp_department_name(){
 
 	$input_config = [

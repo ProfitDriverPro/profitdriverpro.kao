@@ -30,6 +30,7 @@ class DBInit{
 	 * @return [type] [n/a]
 	 */
 	function plugin_deactivation(){
+
 		global $wpdb;
 		$TABLE_NAME = $wpdb->prefix . 'careers_posts';
 
@@ -41,7 +42,6 @@ class DBInit{
 		dbDelta( $sql );
 	}
 
-	
 	/**
 	 * [pdp_init_handler handles init page load functionallity]
 	 * @return [type] [description]
@@ -97,6 +97,7 @@ class DBInit{
 				}				
 			} 	
 		}
+
 		$query = trim($query_start).trim($query_end).' )';
 		$wpdb->query($query);
 		if($wpdb->rows_affected > 0){
@@ -106,35 +107,16 @@ class DBInit{
 		}
 	}
 
-	/**
-	 * [validate_form_data  Validates form data, will trip false if honey pot is detected.]
-	 * @param  [Array] $POST a passed in $_POST array
-	 * @return [BOOL]       [TRUE | FALSE]
-	 */
-	// function pdp_validate_form_data($POST){
-	// 	global $error_message;
-	// 	echo 'inside validation';
-	// 	die();
-	// 	$error_message = new WP_Error();	
-	// 		// //Validate $_POST fields		
-	// 	foreach ($POST as $key => $value) {
-	//     	$value = trim($value);  		
-	//     	if(!("" == trim($value))){
-	//     		continue;    		
-	//     	} else{
-	//     		if(!empty($value)){
-	// 				$error_message->add('Missing Data', 'You are missing the following: '.$key); 
+	// function pdp_edit_post( $id ){
+// 	//todo: Handle editing a existing post
+// 	$department_name = esc_attr(get_option('department_name'));
+// } 
 
-	//     		}
-	//     	}
+// // /*
+//  * [pdp_edit_post Edits the careers pages entries.]
+//  * @param  [type] $id [The selected post to edit]
+//  * @return [type]     [description]
+//  */
 
-	//     }
-
-	//     if(is_wp_error($error_message)){
-	//     	return true;
-	//     } else{
-	//     	return false;
-	//     }
-	// }
 
 }

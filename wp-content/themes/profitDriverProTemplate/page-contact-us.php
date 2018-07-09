@@ -23,7 +23,7 @@ global $error_message;
 		<h5>///</h5>
 		<h1>Contact Us</h1>
 		<p>Profit Driver Pro helps dealerships explore their databases with<br> intuitive functionality and intelligent automation.</p>
-		<a href="<?php //echo home_url($wp->request ); ?>/#form"> <?php //We could set this to be a proper scroll to functionallity. ?>
+		<a href="/contact-us/#form"> <?php //We could set this to be a proper scroll to functionallity. ?>
 			<div class="button">Contact Us</div>
 		</a>
 

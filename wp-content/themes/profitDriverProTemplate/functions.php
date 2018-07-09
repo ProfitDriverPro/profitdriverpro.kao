@@ -24,6 +24,7 @@
  * @package WordPress
  * @subpackage Twenty_Sixteen
  * @since Twenty Sixteen 1.0
+ * @author  Chris Tully <[<chris.tully@profitdriverpro.com>]>
  */
 
 /**
@@ -36,7 +37,6 @@ if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
 if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
  	require get_template_directory() . '/inc/function-admin.php';
 }
-
 
 if ( ! function_exists( 'twentysixteen_setup' ) ) :
 /**
@@ -53,10 +53,9 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
 
 /**
  * [profitDriverPro_enqueue description]
- * 
- * @return [N/A] 
+ *
+ * @return [N/A]
  */
-
 
 /**
  * [profitDriverPro_enqueue description]
@@ -65,18 +64,18 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
 function profitDriverPro_enqueue(){
 
 	wp_register_script(
-	  	'app', 
-	 	get_template_directory_uri() . '/assets/js/app.js', 
+	  	'app',
+	 	get_template_directory_uri() . '/assets/js/app.js',
 	 	array('jQueryLoad'),
 	 	NULL,
 	 	false
 	);
-	wp_register_script( 
+	wp_register_script(
 		'jQueryLoad',
-		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', 
+		'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js',
 		array(),
-		null, 
-		false 
+		null,
+		false
 	);
 	wp_enqueue_script( 'app' );
 	wp_enqueue_script( 'jQueryLoad' );
@@ -86,7 +85,7 @@ function profitDriverPro_enqueue(){
 		'main',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array('app'),
-		'1.0.0',
+		'1.0.2',
 		true
 	);
 	wp_enqueue_script( 'main' );
@@ -96,7 +95,7 @@ function profitDriverPro_enqueue(){
 		'css',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array(),
-		'1.0.0',
+		'1.1.2',
 		'all'
 	);
 	wp_enqueue_style(
@@ -110,7 +109,7 @@ function profitDriverPro_enqueue(){
 		'css',
 		get_template_directory_uri() . '/assets/css/style.css',
 		array(),
-		'4.9.5',
+		'4.9.9',
 		'all'
 	);
 	wp_enqueue_style(
@@ -126,8 +125,118 @@ function profitDriverPro_enqueue(){
  */
 function PDP_load_theme_setup(){
 
-	add_theme_support('menus');	
+	add_theme_support('menus');
 	register_nav_menu('primary','The main Navigation that sticks on all pages.');
+}
+
+/**
+ * [pdp_schema_install connects default required schema for db and saving entries.]
+ * @return [type] [N/A]
+ */
+function pdp_schema_install(){
+	global $wpdb;
+	$TABLE_NAME = $wpdb->prefix . 'careers_posts';
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "CREATE TABLE IF NOT EXISTS `wp_chrylser_demo_form` (
+	  `id` int(11) NOT NULL,
+	  `wp_name` text NOT NULL,
+	  'wp_phone' varchar(15) NOT NULL,
+	  `wp_email` text NOT NULL,
+	  `wp_dealership` text NOT NULL,
+	  `wp_preferred_time` text NOT NULL,
+	  `wp_comments` text NOT NULL,
+	  `wp_date`   datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+	  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+
+}
+
+register_activation_hook( __FILE__, 'pdp_schema_install' );
+
+/**
+ * [pdp_activate locks in on uninstall scripts.]
+ * @return [type] [description]
+ */
+function pdp_activate(){
+    register_uninstall_hook( __FILE__, 'pdp_uninstall' );
+}
+
+add_action('after_switch_theme','pdp_activate');
+
+/**
+ * [pdp_uninstall DB destroy method]
+ * @return [type] [N/A]
+ */
+function pdp_uninstall(){
+    //  codes to perform during unistallation
+    global $wpdb;
+	$TABLE_NAME = $wpdb->prefix . 'chrysler_demo_form';
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "DROP TABLE ".$TABLE_NAME;
+
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+}
+
+add_action( 'after_switch_theme', 'pdp_create_thankyou_page' );
+
+/**
+ * [pdp_create_home_page description]
+ * @return [type] [description]
+ */
+function pdp_create_home_page(){
+ // Set the title, template, etc
+    $new_page_title     = __('Profit Driver Pro | Powere','text-domain'); // Page's title
+    $new_page_content   = '';                           // Content goes here
+    $new_page_template  = 'index.php';       // The template to use for the page
+    $page_check = get_page_by_title($new_page_title);   // Check if the page already exists
+    // Store the above data in an array
+    $new_page = array(
+        'post_type'     => 'page',
+        'post_title'    => $new_page_title,
+        'post_content'  => $new_page_content,
+        'post_status'   => 'publish',
+        'post_author'   => 1,
+        'post_slug'     => '/'
+    );
+    // If the page doesn't already exist, create it
+    if(!isset($page_check->ID)){
+        $new_page_id = wp_insert_post($new_page);
+        if(!empty($new_page_template)){
+            update_post_meta($new_page_id, '_wp_page_template', $new_page_template);
+        }
+    }
+}
+
+function pdp_create_thankyou_page(){
+ // Set the title, template, etc
+    $new_page_title     = __('Thank you','text-domain'); // Page's title
+    $new_page_content   = 'Test Content';                           // Content goes here
+    $new_page_template  = 'page-thank-you.php';       // The template to use for the page
+    $page_check = get_page_by_title($new_page_title);   // Check if the page already exists
+    // Store the above data in an array
+    $new_page = array(
+        'post_type'     => 'page',
+        'post_title'    => $new_page_title,
+        'post_content'  => $new_page_content,
+        'post_status'   => 'publish',
+        'post_author'   => 1,
+        'post_slug'     => 'thank-you'
+    );
+    // If the page doesn't already exist, create it
+    if(!isset($page_check->ID)){
+        $new_page_id = wp_insert_post($new_page);
+        if(!empty($new_page_template)){
+            update_post_meta($new_page_id, '_wp_page_template', $new_page_template);
+        }
+    }
 }
 
 /**
@@ -136,15 +245,19 @@ function PDP_load_theme_setup(){
  * @return [BOOL]       [TRUE | FALSE]
  */
 function saveEntry($POST, $table_name){
+
 	global $wpdb;
-	
+
 	$table = $wpdb->prefix . $table_name;
 	$cleaned_data = array();
 
 	foreach($POST as $key => $value){
+
 		$cleaned_data[$wpdb->prefix.sanitize_text_field($key)] = sanitize_text_field($value);
 	}
+
 	$wpdb->insert($table,$cleaned_data);
+
 	if($wpdb->rows_affected > 0){
 		return true;
 	} else{
@@ -152,41 +265,6 @@ function saveEntry($POST, $table_name){
 	}
 }
 
-/**
- * [sendMail Notifies user and admin about submission]
- * @param  [ Array ] $POST [a copy of the $_POST array]
- * @return [BOOL]       [TRUE | FALSE]
- */
-function sendMail( $POST ){
-
-	// $email = $post_data['email'];
-	// //$to = $post_data[''];
-	// $message = "\n\nThe following information was received:\n";
-
-	// if($post_data['comm_reason']){
-	// 	$message .= "Reason for contact:".$comm_reason .'\n';
-	// }
-	// $message = $post_data['message'];
-	
- //  	$to = 'christully12@gmail.com';
-	// $subject = 'WebMail:';
-	// $headers = 'From: '. $post_data['email'] . "\r\n" .
-	//   'Reply-To: ' . $post_data['email'] . "\r\n";
-
-	// $sent = wp_mail($to, $subject, strip_tags($message), $headers);
-	// if($sent){
-	// 	//my_contact_form_generate_response("success", $message_sent); //message sent!	
-		
-	// 	return true;
-	// } 
-	// else{
-	// 	echo 'fail';
-	// 	die();
-	// 	//my_contact_form_generate_response("error", "Something has gone wrong, please notify the system administrator"); 
-	// 	return false;
-	// } 
-	return true;
-}
 
 /**
  * [validate_form_data  Validates form data, will trip false if honey pot is detected.]
@@ -200,19 +278,18 @@ function validate_form_data($POST){
 
   	if($POST['corporate_name']){
 		return false;
-	}	
-		// //Validate $_POST fields		
+	}
+		// //Validate $_POST fields
 	foreach ($POST as $key => $value) {
 
-    	$value = trim($value);  		
-    	if( $POST['corporate_name'] ){
+    	$value = trim($value);    	if( $POST['corporate_name'] ){
     		continue;
     	}
     	if(!("" == trim($value))){
-    		continue;    		
+    		continue;
     	} else{
     		if(!empty($value)){
-				$error_message->add('Missing Data', 'You are missing the following: '.$key); 
+				$error_message->add('Missing Data', 'You are missing the following: '.$key);
 
     		}
     	}
@@ -232,51 +309,73 @@ function validate_form_data($POST){
 function PDP_form_submission(){
 	if(!empty($_POST)){
 
-		if($_POST['wp-submit'] == 'Log In'){
+		if($_POST['wp-submit'] == 'Log In' || isset($_POST['action']) || isset($_POST['_wpnonce']) ){
 			return true;
 		}
 
-		print_r($_POST);
-		print_r($_SERVER);
-		die();
-		if ( validate_form_data($_POST ) ){	
+		if ( validate_form_data($_POST ) ){
 			$POST = $_POST;
-			$table_name = '';
+			$table_name = 'chrylser_demo_form';
 
-			switch($POST['form_name']){
-				case 'demoForm':
-					$table_name = 'cust_demo_form';
-				break;
-				case 'contactForm':
-					$table_name = 'custom_contact';
-				break;
-				default:
-				break;
-			}
 			//clean out unnecessary data
 			unset($POST['corporate_name']);
 			unset($POST['form_name']);
 
-			if( sendMail($POST) &&	saveEntry($POST,$table_name)){
+			if(saveEntry($POST,$table_name)){
+
+				sendMailtoSalesTeam($POST);
 
 				unset($POST);
 				unset($_POST);
-			
-				wp_redirect( home_url().'/thank-you' );
+
+				wp_redirect( home_url().'?success=true' );
 				exit;
 			} else{
 				global $error_message;
 				$error_message = new WP_Error( 'Invalid Data', 'The data you entered is invalid. Please try again.' );
-				wp_redirect( home_url().'/contact-us?error=true' );
+				wp_redirect( home_url().'?error=true' );
 				exit;
 			}
-		} 
+		}
 	}
 }
 
-add_action( 'init', 'PDP_form_submission' );
+add_action( 'init', 'PDP_form_submission');
 add_action('init','PDP_load_theme_setup');
 add_action('wp_enqueue_scripts','profitDriverPro_enqueue');
+add_action('after_switch_theme', 'pdp_schema_install');
+
+
+function sendMailtoSalesTeam($data){
+
+	return true;
+	$to = 'gurj.gill@profitdriverpro.com, michael.schroeder@profitdriverpro.com, guy.bordian@profitdriverpro.com, david.hyland@profitdriverpro.com';
+
+	$subject = 'Chrylser Demo Request';
+
+	$cleaned_data  = '';
+	$headers = [
+		'name' => 'Name:',
+		'email' => 'Email:',
+		'dealership' =>'Dealership:',
+		'date' => 'Preferred Date:',
+		'prefered_time' => 'Preferred time:',
+		'comments' => 'comments:',
+
+	];
+		foreach($data as $key => $value){
+			if(!$data['form_name']){
+				$cleaned_data  .= headers[$key].'  '.sanitize_text_field($value).'<br />';
+			}
+		}
+
+	$body = 'The following Demo Request has been received: <br \>'. $cleaned_data;
+	//$headers = array('Content-Type: text/html; charset=UTF-8','From: Profit Driver Pro - Demo Site 	&lt;support@profitdriverpro.com');
+    $headers = "From: " . "Support <support@profitdriverpro.com>" . "\r\n";
+    $headers .= "Reply-To: ". strip_tags($data['email']) . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";	
+}
 
 function twentysixteen_setup() {
 	/*
@@ -519,7 +618,7 @@ function twentysixteen_scripts() {
 		'collapse' => __( 'collapse child menu', 'twentysixteen' ),
 	) );
 }
-add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
+// add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
 
 /**
  * Adds custom classes to the array of body classes.
@@ -661,7 +760,7 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 	$args['largest']  = 1;
 	$args['smallest'] = 1;
 	$args['unit']     = 'em';
-	$args['format']   = 'list'; 
+	$args['format']   = 'list';
 
 	return $args;
 }
